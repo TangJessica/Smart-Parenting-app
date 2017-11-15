@@ -1,0 +1,38 @@
+4£©Feedback
+CreateFeedback:
+INSERT INTO `10_Feedback`
+(`10_Feedback`.`FID`, `10_Feedback`.`FTitle`, `10_Feedback`.`FPostDate`, `10_Feedback`.`FPostTime`, `10_Feedback`.`FDescription`) VALUES (AUTO_INCREMENT, FTitle, FPostDate, FPostTime, FDescription)
+
+DeleteFeedback:
+DELETE FROM `10_Feedback`
+WHERE `10_Feedback`.`FID` = FID
+
+SearchUserLinkedToFeedback:
+SELECT `01_User`.`UID` INTO UID
+FROM `01_User`,`10_Feedback`
+WHERE `01_User`.`FID` = `10_Feedback`.`FID`
+
+5) Expert
+CreateExpert:
+INSERT INTO `02_Experts`
+(`02_Experts`.`EID`, `02_Experts`.`ExpertName`, `02_Experts`.`FocusArea`,`02_Experts`.`EDescription`) VALUES (AUTO_INCREMENT, EName, EFocus, EDescription)
+
+DeleteExpert:
+DELETE FROM`02_Experts`
+WHERE `02_Experts`.`EID`= EID
+
+ModifyExpert:
+UPDATE `02_Experts`
+SET `02_Experts`.`ExpertName` = EName, `02_Experts`.`FocusArea` = EFocus, `02_Experts`.`EDescription` = EDescription
+WHERE `02_Experts`.`EID` = EID
+
+SearchLecturesWrittenByExpert:
+SELECT `06_Lectures`.`LID` INTO LID
+FROM `02_Experts`, `06_Lectures`
+WHERE`02_Experts`.`EID` = `06_Lectures`.`EID`
+
+SearchBlogsWrittenBuExpert:
+SELECT `04_ExpertsBlog`.`EBID` INTO EBID
+FROM `02_Experts`, `04_ExpertsBlog`
+WHERE `02_Experts`.EBID = `04_ExpertsBlog`.`EBID`
+
