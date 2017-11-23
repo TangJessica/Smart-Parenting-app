@@ -1,38 +1,353 @@
+1£©User
+CreateAUser:
+CREATE DEFINER=`cpses_czLpyp5cgK`@`localhost` PROCEDURE `CreateAUser`(IN `UID` BIGINT(10), IN `UName` VARCHAR(255), IN `UEmail` VARCHAR(255), IN `UPassword` VARCHAR(255), IN `UFirstName` VARCHAR(255), IN `ULastName` VARCHAR(255), IN `UAge` VARCHAR(255), IN `UCity` VARCHAR(255), IN `UState` VARCHAR(255), IN `UCountry` VARCHAR(255), IN `UToBeMentor` BINARY(10), IN `UDegree` BIGINT(255), IN `USubject` VARCHAR(255), IN `UGpa` FLOAT(10), IN `UActScore` FLOAT(10), IN `UInterestCountry` VARCHAR(255))
+    MODIFIES SQL DATA
+    DETERMINISTIC
+INSERT INTO `01_User`
+(`01_User`.`UID`,`01_User`.`UserName`, `01_User`.`UEmailAddress`, `01_User`.`Password`, `01_User`.`FirstName`, `01_User`.`LastName`, `01_User`.`Age`, `01_User`.`City`, `01_User`.`State/Province`, `01_User`, `01_User`.`Country`, `01_User`.`ToBeMentor`, `01_User`.`Degree`, `01_User`.`Subject`, `01_User`.`GPA`, `01_User`.`ActScore`, `01_User`.`InterestCountry`) VALUES (AUTO_INCREMENT, UID, UName, UEmail, UPassword, UFirstName, ULastName, UAge, UCity, UState, UCountry, UToBeMentor, UDegree, USubject, UGpa, UActScore, UInterestCountry)
+DeleteAUser:
+CREATE DEFINER=`cpses_czLpyp5cgK`@`localhost` PROCEDURE `DeleteAUser`(IN `UID` BIGINT(10))
+    MODIFIES SQL DATA
+    DETERMINISTIC
+DELETE FROM `01_User`
+WHERE `01_User`.`UID`= UID
+ModifyAUser:
+CREATE DEFINER=`cpses_czLpyp5cgK`@`localhost` PROCEDURE `ModifyAUser`(IN `UName` VARCHAR(255), IN `UPassword` VARCHAR(255), IN `UFirstName` VARCHAR(255), IN `ULastName` VARCHAR(255), IN `UAge` BIGINT(10), IN `UCity` VARCHAR(255), IN `UState` VARCHAR(255), IN `UCountry` VARCHAR(255), IN `UToBeMentor` BINARY(10), IN `UDegree` VARCHAR(255), IN `USubject` VARCHAR(255), IN `UGpa` FLOAT(10), IN `UActScore` FLOAT(10), IN `UInterestCountry` VARCHAR(255))
+    MODIFIES SQL DATA
+    DETERMINISTIC
+UPDATE `01_User`
+SET `01_User`.`UserName` = UName, `01_User`.`Password` = UPassword, `01_User`.`FirstName`= UFirstName, `01_User`.`LastName` = ULastName,
+`01_User`.`Age` = UAge, `01_User`.`City` = UCity, `01_User`.`State/Province` = UState, `01_User`.`Country` = UCountry, `01_User`.`ToBeMentor` = UToBeMentor, `01_User`.`Degree` = UDegree, `01_User`.`Subject` = USubject, `01_User`.`GPA` = UGpa, `01_User`.`ActScore` = UActorScore, `01_User`.`InterestCountry` = UInterestCountry
+FindQuestionsByAUser:
+CREATE DEFINER=`cpses_czLpyp5cgK`@`localhost` PROCEDURE `FindQuestionsByAUser`(IN `UID` BIGINT(10), OUT `QID` BIGINT(10))
+    READS SQL DATA
+    DETERMINISTIC
+SELECT `01_User`.`QID` INTO QID
+FROM `01_User`
+WHERE `01_User`.`UID` = UID
+FindAnswersByAUser:
+CREATE DEFINER=`cpses_czLpyp5cgK`@`localhost` PROCEDURE `FindAnswersByAUser`(IN `UID` BIGINT(10), OUT `AID` BIGINT(10))
+    READS SQL DATA
+    DETERMINISTIC
+SELECT `01_User`.`AID` INTO AID
+FROM `01_User`
+WHERE `01_User`.`UID` = UID
+FindFeedbacksByAUser:
+CREATE DEFINER=`cpses_czLpyp5cgK`@`localhost` PROCEDURE `FindFeedbacksByAUser`(IN `UID` BIGINT(10), OUT `FID` BIGINT(10))
+    READS SQL DATA
+    DETERMINISTIC
+SELECT `01_User`.`FID` INTO FID
+FROM `01_User`
+WHERE `01_User`.`UID` = UID
+FindReviewRatingByAUser:
+CREATE DEFINER=`cpses_czLpyp5cgK`@`localhost` PROCEDURE `FindReviewRatingByAUser`(IN `UID` BIGINT(10), OUT `CRID` BIGINT(10))
+    READS SQL DATA
+    DETERMINISTIC
+SELECT `01_User`.`CRID` INTO CRID
+FROM `01_User`
+WHERE `01_User`.`UID` = UID
+FindBlogCommentsByAUser:
+CREATE DEFINER=`cpses_czLpyp5cgK`@`localhost` PROCEDURE `FindBlogCommentsByAUser`(IN `UID` BIGINT(10), OUT `BCID` BIGINT(10))
+    READS SQL DATA
+    DETERMINISTIC
+SELECT `01_User`.`BCID` INTO BCID
+FROM `01_User`
+WHERE `01_User`.`UID` = UID
+FindExpertCommentByAUser:
+CREATE DEFINER=`cpses_czLpyp5cgK`@`localhost` PROCEDURE `FindExpertCommentByAUser`(IN `UID` BIGINT(10), IN `ECID` BIGINT(10))
+    READS SQL DATA
+    DETERMINISTIC
+SELECT`01_User`.`ECID` INTO ECID
+FROM `01_User`
+WHERE `01_User`.`UID` = UID
+2) Questions
+CreateAQuestion:
+CREATE DEFINER=`cpses_czLpyp5cgK`@`localhost` PROCEDURE `DeleteAQuestion`(IN `QID` BIGINT(10))
+    READS SQL DATA
+    DETERMINISTIC
+DELETE FROM `04_Questions`
+WHERE `04_Questions` = QID
+DeleteAQuestion:
+CREATE DEFINER=`cpses_czLpyp5cgK`@`localhost` PROCEDURE `DeleteAQuestion`(IN `QID` BIGINT(10))
+    READS SQL DATA
+    DETERMINISTIC
+DELETE FROM `04_Questions`
+WHERE `04_Questions` = QID
+ModifyAQuestion:
+CREATE DEFINER=`cpses_czLpyp5cgK`@`localhost` PROCEDURE `ModifyAQuestion`(IN `QID` BIGINT(10), IN `QTitle` VARCHAR(255), IN `QDate` DATE, IN `QTime` TIME, IN `QDescription` VARCHAR(255))
+    MODIFIES SQL DATA
+    DETERMINISTIC
+UPDATE `04_Questions`
+SET `04_Questions`.`QTitle` = QTitle, `04_Questions`.`QPostDate` = QDate, `04_Questions`.`QPostTime` = QTime, `04_Questions`.`QDescription` = QDescription
+WHERE `04_Questions`.`QID` = QID
+FindAnswersToAQuestion:
+CREATE DEFINER=`cpses_czLpyp5cgK`@`localhost` PROCEDURE `FindAnswersToAQuestion`(IN `QID` BIGINT(10), IN `AID` BIGINT(10))
+    READS SQL DATA
+    DETERMINISTIC
+SELECT `04_Questions`.`AID` INTO AID
+FROM `04_Questions`
+WHERE `04_Questions`.`QID` = QID
+?
+3£©Answer
+CreateAnAnswer:
+CREATE DEFINER=`cpses_czLpyp5cgK`@`localhost` PROCEDURE `ModifyAnAnswer`(IN `ATitle` VARCHAR(255), IN `ADate` DATE, IN `ATime` TIME, IN `ADescription` VARCHAR(255), IN `AID` BIGINT(10))
+    MODIFIES SQL DATA
+    DETERMINISTIC
+UPDATE `08_Answers`
+SET `08_Answers`.`ATitle` = ATitle, `08_Answers`.`APostDate` = ADate,
+`08_Answers`.`APostTime` = ATime, `08_Answers`.`ADescription` = ADescription
+WHERE`08_Answers`.`AID` = AID
+DeleteAnAnswer:
+CREATE DEFINER=`cpses_czLpyp5cgK`@`localhost` PROCEDURE `DeleteAnAnswer`(IN `AID` BIGINT(10))
+    MODIFIES SQL DATA
+    DETERMINISTIC
+DELETE FROM `08_Answers`
+WHERE `08_Answers`.`AID` = AID
+ModifyAnAnswer:
+CREATE DEFINER=`cpses_czLpyp5cgK`@`localhost` PROCEDURE `ModifyAnAnswer`(IN `ATitle` VARCHAR(255), IN `ADate` DATE, IN `ATime` TIME, IN `ADescription` VARCHAR(255), IN `AID` BIGINT(10))
+    MODIFIES SQL DATA
+    DETERMINISTIC
+UPDATE `08_Answers`
+SET `08_Answers`.`ATitle` = ATitle, `08_Answers`.`APostDate` = ADate,
+`08_Answers`.`APostTime` = ATime, `08_Answers`.`ADescription` = ADescription
+WHERE`08_Answers`.`AID` = AID
+?
+FindAQuestionLinkedToAnAnswer:
+CREATE DEFINER=`cpses_czLpyp5cgK`@`localhost` PROCEDURE `FindAQuestionLinkedToAnAnswer`(IN `AID` BIGINT(10), OUT `QID` BIGINT(10))
+    READS SQL DATA
+    DETERMINISTIC
+SELECT `08_Answers`.`QID` INTO QID
+FROM `08_Answers`
+WHERE `08_Answers`.`AID` = AID
+FindAUserLindedToAnAnswer:
+CREATE DEFINER=`cpses_czLpyp5cgK`@`localhost` PROCEDURE `FindAUserLindedToAnAnswer`(IN `AID` BIGINT(10), OUT `UID` BIGINT(10))
+    READS SQL DATA
+    DETERMINISTIC
+SELECT `08_Answers`.`UID` INTO UID
+FROM `08_Answers`
+WHERE `08_Answers`.`AID` = AID
 4£©Feedback
-CreateFeedback:
-INSERT INTO `10_Feedback`
-(`10_Feedback`.`FID`, `10_Feedback`.`FTitle`, `10_Feedback`.`FPostDate`, `10_Feedback`.`FPostTime`, `10_Feedback`.`FDescription`) VALUES (AUTO_INCREMENT, FTitle, FPostDate, FPostTime, FDescription)
-
-DeleteFeedback:
-DELETE FROM `10_Feedback`
-WHERE `10_Feedback`.`FID` = FID
-
-SearchUserLinkedToFeedback:
-SELECT `01_User`.`UID` INTO UID
-FROM `01_User`,`10_Feedback`
-WHERE `01_User`.`FID` = `10_Feedback`.`FID`
-
+CreateAFeedback:
+CREATE DEFINER=`cpses_czLpyp5cgK`@`localhost` PROCEDURE `CreateFeedback`(IN `FID` BIGINT(10), IN `FTitle` VARCHAR(255), IN `FDate` DATE, IN `FTime` TIME, IN `FDescription` VARCHAR(255))
+    MODIFIES SQL DATA
+    DETERMINISTIC
+INSERT INTO `09_Feedback`
+(`09_Feedback`.`FID`, `09_Feedback`.`FTitle`, `09_Feedback`.`FPostDate`, `09_Feedback`.`FPostTime`, `09_Feedback`.`FDescription`) VALUES (AUTO_INCREMENT, FTitle, FDate, FTime, FDescription) 
+?
+DeleteAFeedback:
+CREATE DEFINER=`cpses_czLpyp5cgK`@`localhost` PROCEDURE `DeleteFeedback`(IN `FID` BIGINT(10))
+    MODIFIES SQL DATA
+    DETERMINISTIC
+DELETE FROM `09_Feedback`
+WHERE `09_Feedback`.`FID` = FID 
+FindUserLinkedToFeedback:
+CREATE DEFINER=`cpses_czLpyp5cgK`@`localhost` PROCEDURE `FindUserLinkedToFeedback`(IN `FID` BIGINT(10), OUT `UID` BIGINT(10))
+    READS SQL DATA
+    DETERMINISTIC
+SELECT `09_Feedback`.`UID` INTO UID
+FROM `09_Feedback`
+WHERE `09_Feedback`.`FID` = FID 
 5) Expert
-CreateExpert:
+CreateAnExpert:
+CREATE DEFINER=`cpses_czLpyp5cgK`@`localhost` PROCEDURE `CreateAnExpert`(IN `EID` BIGINT(10), IN `EName` VARCHAR(255), IN `EFocus` VARCHAR(255), IN `EDescription` VARCHAR(255))
+    MODIFIES SQL DATA
+    DETERMINISTIC
 INSERT INTO `02_Experts`
 (`02_Experts`.`EID`, `02_Experts`.`ExpertName`, `02_Experts`.`FocusArea`,`02_Experts`.`EDescription`) VALUES (AUTO_INCREMENT, EName, EFocus, EDescription)
-
-DeleteExpert:
-DELETE FROM`02_Experts`
-WHERE `02_Experts`.`EID`= EID
-
-ModifyExpert:
+DeleteAnExpert:
+CREATE DEFINER=`cpses_czLpyp5cgK`@`localhost` PROCEDURE `DeleteAnExpert`(IN `EID` BIGINT(10))
+    MODIFIES SQL DATA
+    DETERMINISTIC
+DELETE FROM `02_Experts`
+WHERE `02_Experts`.`EID` = EID
+ModifyAnExpert:
+CREATE DEFINER=`cpses_czLpyp5cgK`@`localhost` PROCEDURE `ModifyAnExpert`(IN `EID` BIGINT(10), IN `EName` VARCHAR(255), IN `EFocus` VARCHAR(255), IN `EDescription` VARCHAR(255))
+    MODIFIES SQL DATA
+    DETERMINISTIC
 UPDATE `02_Experts`
 SET `02_Experts`.`ExpertName` = EName, `02_Experts`.`FocusArea` = EFocus, `02_Experts`.`EDescription` = EDescription
 WHERE `02_Experts`.`EID` = EID
+FindLecturesWrittenByExpert:
+CREATE DEFINER=`cpses_czLpyp5cgK`@`localhost` PROCEDURE `FindLecturesWrittenByExpert`(IN `EID` BIGINT(10), OUT `LID` BIGINT(10))
+    READS SQL DATA
+    DETERMINISTIC
+SELECT `02_Experts`.`LID` INTO LID
+FROM `02_Experts`
+WHERE `02_Experts`.`EID` = EID
+FindBlogsWrittenByExpert:
+CREATE DEFINER=`cpses_czLpyp5cgK`@`localhost` PROCEDURE `FindBlogsWrittenByExpert`(IN `EID` BIGINT(10), OUT `EBID` BIGINT(10))
+    READS SQL DATA
+    DETERMINISTIC
+SELECT `02_Experts`.`EBID` INTO EBID
+FROM `02_Experts`
+WHERE `02_Experts`.`EID` = EID
+?
+FindExpertCommentToExpert:
+CREATE DEFINER=`cpses_czLpyp5cgK`@`localhost` PROCEDURE `FindExpertCommentToExpert`(IN `EID` BIGINT(10), OUT `ECID` BIGINT(10))
+    READS SQL DATA
+    DETERMINISTIC
+SELECT `02_Experts`.`ECID` INTO ECID
+FROM `02_Experts`
+WHERE `02_Experts`.`EID` = EID
+FindRatingsOfAnExpertByAllUsers:
 
-SearchLecturesWrittenByExpert:
-SELECT `06_Lectures`.`LID` INTO LID
-FROM `02_Experts`, `06_Lectures`
-WHERE`02_Experts`.`EID` = `06_Lectures`.`EID`
-
-SearchBlogsWrittenBuExpert:
-SELECT `04_ExpertsBlog`.`EBID` INTO EBID
-FROM `02_Experts`, `04_ExpertsBlog`
-WHERE `02_Experts`.EBID = `04_ExpertsBlog`.`EBID`
-
+6) ExpertComment
+CreateAnExpertComment:
+CREATE DEFINER=`cpses_czLpyp5cgK`@`localhost` PROCEDURE `CreateAnExpertComment`(IN `ECID` BIGINT(10), IN `ECTitle` VARCHAR(255), IN `ECDate` DATE, IN `ECTime` TIME, IN `ECContent` VARCHAR(255))
+    MODIFIES SQL DATA
+    DETERMINISTIC
+INSERT INTO `06_ExpertsComment`
+(`06_ExpertsComment`.`ECID`, `06_ExpertsComment`.`ECTitle`, `06_ExpertsComment`.`ECDate`, `06_ExpertsComment`.`ECTime`, `06_ExpertsComment`.`ECContent`) VALUES (AUTO_INCREMENT, ECTitle, ECDate, ECTime, ECContent)
+DeleteAnExpertComment:
+CREATE DEFINER=`cpses_czLpyp5cgK`@`localhost` PROCEDURE `DeleteAnExpertComment`(IN `ECID` BIGINT(10))
+    MODIFIES SQL DATA
+    DETERMINISTIC
+DELETE FROM `06_ExpertsComment`
+WHERE `06_ExpertsComment`.`ECID` = ECID
+?
+ModifyExpertComment:
+CREATE DEFINER=`cpses_czLpyp5cgK`@`localhost` PROCEDURE `ModifyExpertComment`(IN `ECTitle` VARCHAR(255), IN `ECDate` DATE, IN `ECTime` TIME, IN `ECContent` VARCHAR(255), IN `ECID` BIGINT(10))
+    MODIFIES SQL DATA
+    DETERMINISTIC
+UPDATE `06_ExpertsComment`
+SET `06_ExpertsComment`.`ECTitle` = ECTitle, `06_ExpertsComment`.`ECDate` = ECDate, `06_ExpertsComment`.`ECTime` = ECTime, `06_ExpertsComment`.`ECContent` = ECContent
+WHERE `06_ExpertsComment`.`ECID` = ECID
+FindAUserLinkToAnExpertComment:
+CREATE DEFINER=`cpses_czLpyp5cgK`@`localhost` PROCEDURE `FindAUserLinkToAnExpertComment`(IN `ECID` BIGINT(10), OUT `UID` BIGINT(10))
+    READS SQL DATA
+    DETERMINISTIC
+SELECT `06_ExpertsComment`.`UID` INTO UID
+FROM `06_ExpertsComment`
+WHERE `06_ExpertsComment`.`ECID` = ECID
+FindAnExpertLinkedToExpertComment:
+CREATE DEFINER=`cpses_czLpyp5cgK`@`localhost` PROCEDURE `FindAnExpertLinkedToExpertComment`(IN `ECID` BIGINT(10), OUT `EID` BIGINT(10))
+    READS SQL DATA
+    DETERMINISTIC
+SELECT`06_ExpertsComment`.`EID` INTO EID
+FROM `06_ExpertsComment`
+WHERE `06_ExpertsComment`.`ECID` = ECID
+?
+7) CustomerReview
+CreateACustomerReview:
+CREATE DEFINER=`cpses_czLpyp5cgK`@`localhost` PROCEDURE `CreateACustomerReview`(IN `CRID` BIGINT(10), IN `CRDate` DATE, IN `CRTime` TIME, IN `CRContent` VARCHAR(255), IN `CRRating` FLOAT(10))
+    MODIFIES SQL DATA
+    DETERMINISTIC
+INSERT INTO `10_CustomerReview`
+(`10_CustomerReview`.`CRID`, `10_CustomerReview`.`CRDate`, `10_CustomerReview`.`CRTime`, `10_CustomerReview`.`CRContent`, `10_CustomerReview`.`Rating`) VALUES (AUTO_INCREMENT, CRDate, CRTime, CRContent, CRRating)
+DeleteACustomerReview:
+CREATE DEFINER=`cpses_czLpyp5cgK`@`localhost` PROCEDURE `DeleteACustomerReview`(IN `CRID` BIGINT(10))
+    MODIFIES SQL DATA
+    DETERMINISTIC
+DELETE FROM `10_CustomerReview`
+WHERE `10_CustomerReview`.`CRID` = CRID
+ModifyACustomerReview:
+CREATE DEFINER=`cpses_czLpyp5cgK`@`localhost` PROCEDURE `ModifyACustomerReview`(IN `CRID` BIGINT(10), IN `CRDate` DATE, IN `CRTime` TIME, IN `CRContent` VARCHAR(255), IN `CRRating` FLOAT(10))
+    MODIFIES SQL DATA
+    DETERMINISTIC
+UPDATE `10_CustomerReview`
+SET `10_CustomerReview`.`CRDate` = CRDate, `10_CustomerReview`.`CRTime` = CRTime, `10_CustomerReview`.`CRContent` = CRContent, `10_CustomerReview`.`Rating` = CRRating
+WHERE `10_CustomerReview`.`CRID` = CRID
+?
+FindUserLinkedToAReview:
+CREATE DEFINER=`cpses_czLpyp5cgK`@`localhost` PROCEDURE `FindAUserLinkedToAReview`(IN `CRID` BIGINT(10), OUT `UID` BIGINT(10))
+    READS SQL DATA
+    DETERMINISTIC
+SELECT `10_CustomerReview`.`UID` INTO UID
+FROM `10_CustomerReview`
+WHERE `10_CustomerReview`.`CRID` = CRID
+FindExpertLinkedToReview:
+CREATE DEFINER=`cpses_czLpyp5cgK`@`localhost` PROCEDURE `FindAUserLinkedToAReview`(IN `CRID` BIGINT(10), OUT `UID` BIGINT(10))
+    READS SQL DATA
+    DETERMINISTIC
+SELECT `10_CustomerReview`.`UID` INTO UID
+FROM `10_CustomerReview`
+WHERE `10_CustomerReview`.`CRID` = CRID
+8) ExpertBlog
+CreateAnExpertBlog:
+CREATE DEFINER=`cpses_czLpyp5cgK`@`localhost` PROCEDURE `CreateAnExpertBlog`(IN `EBID` BIGINT(10), IN `EBTitle` VARCHAR(255), IN `EBDate` DATE, IN `EBTime` TIME, IN `EBDescription` VARCHAR(255))
+    MODIFIES SQL DATA
+    DETERMINISTIC
+INSERT INTO `05_ExpertsBlog`
+(`05_ExpertsBlog`.`EBID`, `05_ExpertsBlog`.`EBTitle`, `05_ExpertsBlog`.`EBPostDate`,`05_ExpertsBlog`.`EBPostTime`, `05_ExpertsBlog`.`EBDescription`) VALUES (AUTO_INCREMENT, EBTitle, EBDate, EBTime, EBDescription)
+?
+DeleteAnExpertBlog:
+CREATE DEFINER=`cpses_czLpyp5cgK`@`localhost` PROCEDURE `DeleteAnExpertBlog`(IN `EBID` BIGINT(10))
+    MODIFIES SQL DATA
+    DETERMINISTIC
+DELETE FROM `05_ExpertsBlog`
+WHERE `05_ExpertsBlog`.`EBID` = EBID
+ModifyAnExpertBlog:
+CREATE DEFINER=`cpses_czLpyp5cgK`@`localhost` PROCEDURE `ModifyAnExpertBlog`(IN `EBID` BIGINT(10), IN `EBTitle` VARCHAR(255), IN `EBDate` DATE, IN `EBTime` TIME, IN `EBDescriptio` VARCHAR(255))
+    MODIFIES SQL DATA
+    DETERMINISTIC
+UPDATE `05_ExpertsBlog`
+SET `05_ExpertsBlog`.`EBTitle` = EBTitle, `05_ExpertsBlog`.`EBPostDate` = EBDate, `05_ExpertsBlog`.`EBPostTime` = EBTime, `05_ExpertsBlog`.`EBDescription` = EBDescription
+WHERE `05_ExpertsBlog`.`EBID` = EBID
+FindBlogCommentsOnBlog:
+CREATE DEFINER=`cpses_czLpyp5cgK`@`localhost` PROCEDURE `FindBlogCommentsOnBlog`(IN `EBID` BIGINT(10), OUT `BCID` BIGINT(10))
+    READS SQL DATA
+    DETERMINISTIC
+SELECT`05_ExpertsBlog`.`BCID` INTO BCID
+FROM `05_ExpertsBlog`
+WHERE `05_ExpertsBlog`.`EBID` = EBID
+FindExpertLinkToBlog:
+CREATE DEFINER=`cpses_czLpyp5cgK`@`localhost` PROCEDURE `FindExpertLinkToBlog`(IN `EBID` BIGINT(10), OUT `EID` BIGINT(10))
+    READS SQL DATA
+    DETERMINISTIC
+SELECT `05_ExpertsBlog`.`EID`INTO EID
+FROM `05_ExpertsBlog`
+WHERE `05_ExpertsBlog`.`EBID` = EBID
+9)BlogComments
+CreateABlogComment:
+CREATE DEFINER=`cpses_czLpyp5cgK`@`localhost` PROCEDURE `CreateABlogComment`(IN `BCID` BIGINT(10), IN `BCTitle` VARCHAR(255), IN `BCDate` DATE, IN `BCTime` TIME, IN `BCDescription` VARCHAR(255))
+    MODIFIES SQL DATA
+    DETERMINISTIC
+INSERT INTO `07_BlogComments`
+(`07_BlogComments`.`BCID`, `07_BlogComments`.`BCTitle`, `07_BlogComments`.`BCDate`, `07_BlogComments`.`BCTime`, `07_BlogComments`.`BCContent`) VALUES (AUTO_INCREMENT, BCTitle, BCDate, BCTime, BCDescription)
+DeleteABlogComments:
+CREATE DEFINER=`cpses_czLpyp5cgK`@`localhost` PROCEDURE `DeleteABlogComments`(IN `BCID` BIGINT(10))
+    MODIFIES SQL DATA
+    DETERMINISTIC
+DELETE FROM `07_BlogComments`
+WHERE `07_BlogComments`.`BCID` = BCID
+ModifyABlogComment:
+CREATE DEFINER=`cpses_czLpyp5cgK`@`localhost` PROCEDURE `ModifyABlogComment`(IN `BCID` BIGINT(10), IN `BCTitle` VARCHAR(255), IN `BCDate` DATE, IN `BCTime` TIME, IN `BCContent` VARCHAR(255))
+    MODIFIES SQL DATA
+    DETERMINISTIC
+UPDATE `07_BlogComments`
+SET `07_BlogComments`.`BCTitle` = BCTitle, `07_BlogComments`.`BCDate` = BCDate, `07_BlogComments`.`BCTime` = BCTime, `07_BlogComments`.`BCContent` =  BCContent
+WHERE `07_BlogComments`.`BCID` = BCID
+FindUserLinkedToBlogComment:
+CREATE DEFINER=`cpses_czLpyp5cgK`@`localhost` PROCEDURE `FindUserLinkedToBlogComment`(IN `BCID` BIGINT(10), OUT `UID` BIGINT(10))
+    READS SQL DATA
+    DETERMINISTIC
+SELECT `07_BlogComments`.`UID` INTO UID
+FROM `07_BlogComments`
+WHERE `07_BlogComments`.`BCID` = BCID
+10) Lectures
+CreateALecture:
+CREATE DEFINER=`cpses_czLpyp5cgK`@`localhost` PROCEDURE `CreateALecture`(IN `LID` BIGINT(10), IN `LTitle` VARCHAR(255), IN `LDate` DATE, IN `LTime` TIME, IN `LDescripton` VARCHAR(255))
+    MODIFIES SQL DATA
+    DETERMINISTIC
+INSERT INTO `03_Lectures`
+(`03_Lectures`.`LID`, `03_Lectures`.`LTitle`, `03_Lectures`.`LPostDate`, `03_Lectures`.`LPostTime`, `03_Lectures`.`LDescription`) VALUES (AUTO_INCREMENT, LTitle, LDate, LTime, LDescription)
+DeleteALecture:
+CREATE DEFINER=`cpses_czLpyp5cgK`@`localhost` PROCEDURE `DeleteALecture`(IN `LID` BIGINT(10))
+    MODIFIES SQL DATA
+    DETERMINISTIC
+DELETE FROM `03_Lectures`
+WHERE `03_Lectures`.`LID` = LID
+ModifyALecture:
+CREATE DEFINER=`cpses_czLpyp5cgK`@`localhost` PROCEDURE `ModifyALecture`(IN `LID` BIGINT(10), IN `LTitle` VARCHAR(255), IN `LDate` DATE, IN `LTime` TIME, IN `LDescription` VARCHAR(255))
+    MODIFIES SQL DATA
+    DETERMINISTIC
+UPDATE `03_Lectures`
+SET `03_Lectures`.`LTitle` = LTitle, `03_Lectures`.`LPostDate` = LDate, `03_Lectures`.`LPostTime` = LTime, `03_Lectures`.`LDescription` = LDescription
+WHERE`03_Lectures`.`LID` = LID
+FindExpertLinkedToLecture:
+CREATE DEFINER=`cpses_czLpyp5cgK`@`localhost` PROCEDURE `FindExpertLinkedToLecture`(IN `LID` BIGINT(10), OUT `EID` BIGINT(10))
+    READS SQL DATA
+    DETERMINISTIC
+SELECT `03_Lectures`.`EID` INTO EID
+FROM `03_Lectures`
+WHERE `03_Lectures`.`LID` = LID
