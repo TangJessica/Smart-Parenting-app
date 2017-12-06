@@ -1,0 +1,31 @@
+<?php
+
+/**
+ * Implements hook_menu().
+ */
+function consulting_menu(){
+     $items = array();
+
+  $items['consulting'] = array(
+    'title' => 'Consulting',
+    'access callback' => TRUE,
+    'page callback' => 'sqlQuery',
+    'type' => MENU_NORMAL_ITEM,
+    'menu' => 'navigation',
+  );
+
+  return $items;
+}
+
+
+function sqlQuery( $user ){
+   global $user;
+
+  $query = "SELECT name FROM {users} WHERE uid = :uid";
+  $results = db_query($query, array("uid" => $user->uid))->fetchField();
+  printMatchedConsultants($results);
+}
+
+function printMatchedConsultants($matchedConsultants){
+   return t($matchedConsultants);
+}
