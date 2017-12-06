@@ -1,5 +1,5 @@
 <?php
-
+isset($settings['description']);
 /**
  * @file
  * Initiates a browser-based installation of Drupal.

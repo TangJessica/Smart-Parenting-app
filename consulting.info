@@ -1,0 +1,4 @@
+name = Consulting
+description = Consulting module for consulting page
+core = 7.x
+package = My Modules
